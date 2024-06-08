@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Conheça o Colégio Santa Catarina Juiz de Fora, o melhor colégio de Juiz de Fora">
     <link rel="shortcut icon" href="favicon/icon.webp" type="image/x-icon">
     <link rel="stylesheet" href="styles/variables.css">
     <link rel="stylesheet" href="styles/load.css">
@@ -19,6 +20,20 @@
                 <img src="img/logo-colegio-juizdefora.webp" alt="colegio santa catarina juiz de fora">
             </aside>
         </aside>
+
+        <script>
+            setTimeout(() => {
+                document.querySelector("aside.description").classList.add("active");
+
+                setTimeout(() => {
+                    document.querySelector("aside.description").classList.remove("active");
+                    setTimeout(() => {
+                        document.querySelector("aside.container").classList.add("active");
+                    }, 800)
+                }, 1000)
+            }, 3000);
+
+        </script>
     </section>
 
     <div class="load">
@@ -31,5 +46,14 @@
         </main>
         <footer></footer>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                document.getElementById("loading").remove()
+            }, 7000)
+            
+        })
+    </script>
 </body>
 </html>
