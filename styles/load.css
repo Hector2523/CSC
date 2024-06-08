@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+section#loading {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section#loading aside.container {
+    position: relative;
+    width: 100%;
+    height: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section#loading aside.container aside.logo,
+section#loading aside.container aside.description {
+    position: absolute;
+}
+
+section#loading aside.container aside.logo {
+    z-index: 3;
+    animation: positionLogo ease-in-out .8s 2.6s forwards;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+section#loading aside.container aside.logo img {
+    width: auto;
+    height: 15vh;
+    animation: rotate ease .8s 5;
+}
+
+@keyframes positionLogo {
+    from {
+        left: 50%;
+    }
+
+    to {
+        left: 42%;
+    }
+}
+
+@keyframes rotate {
+    from {
+        rotate: 0;
+    }
+
+    to {
+        rotate: -360deg;
+    }
+}
+
+section#loading aside.container aside.description {
+    left: 55%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    width: 20vw;
+}
+
+section#loading aside.container aside.description::after {
+    background-color: white;
+    content: '';
+    width: 98%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: positionName .8s 2.8s ease-in-out forwards;
+}
+
+section#loading aside.container aside.description img {
+    height: 12vh;
+}
+
+@keyframes positionName {
+    from {
+        left: 0%;
+    }
+
+    to {
+        left: 100%;
+    }
+}
