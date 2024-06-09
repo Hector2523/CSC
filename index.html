@@ -4,37 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Conheça o Colégio Santa Catarina Juiz de Fora, o melhor colégio de Juiz de Fora">
+    <meta property="og:image" content="img/banner.webp">
     <link rel="shortcut icon" href="favicon/icon.webp" type="image/x-icon">
-    <link rel="stylesheet" href="styles/variables.css">
     <link rel="stylesheet" href="styles/load.css">
+    <link rel="stylesheet" href="styles/variables.css">
     <title>Colégio Santa Catarina</title>
 </head>
 <body>
-
-    <section id="loading">
-        <aside class="container">
-            <aside class="logo">
-                <img src="img/icon.webp" alt="Colegio Santa Catarina logo">
-            </aside>
-            <aside class="description">
-                <img src="img/logo-colegio-juizdefora.webp" alt="colegio santa catarina juiz de fora">
-            </aside>
-        </aside>
-
-        <script>
-            setTimeout(() => {
-                document.querySelector("aside.description").classList.add("active");
-
-                setTimeout(() => {
-                    document.querySelector("aside.description").classList.remove("active");
-                    setTimeout(() => {
-                        document.querySelector("aside.container").classList.add("active");
-                    }, 800)
-                }, 1000)
-            }, 3000);
-
-        </script>
-    </section>
 
     <div class="load">
         <header></header>
@@ -49,11 +25,56 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            document.body.innerHTML += `
+            <section id="loading">
+                <div class="progress"></div>
+                <aside class="container">
+                    <aside class="logo">
+                        <img src="img/icon.webp" alt="Colegio Santa Catarina logo">
+                    </aside>
+                    <aside class="description">
+                        <img src="img/logo-colegio-juizdefora.webp" alt="colegio santa catarina juiz de fora">
+                    </aside>
+                </aside>
+            </section>
+            `;
+
+            timer(7000, 1000, 800);
+        });
+
+        function timer(totalTime, time2, time3) {
+            var repeat = document.styleSheets[0].cssRules[0];
+
+            let percent = 0;
+            let interval = totalTime / 100;
+
+            let loadingInterval = setInterval(() => {
+                if (percent < 100) {
+                    percent++;
+                    repeat.style.setProperty("--percentage", percent + 'vw');
+                } else {
+                    clearInterval(loadingInterval);
+                }
+            }, interval);
+
             setTimeout(() => {
-                document.getElementById("loading").remove()
-            }, 7000)
-            
-        })
+                document.querySelector("aside.description").classList.add("active");
+
+                setTimeout(() => {
+                    document.querySelector("aside.description").classList.remove("active");
+                    setTimeout(() => {
+                        document.querySelector("aside.container").classList.add("active");
+                        setTimeout(() => {
+                            document.getElementById("loading").remove();
+                            document.styleSheets[0].disabled = false;
+                            setTimeout(() => {
+                                document.querySelector("div.load").classList.add("finish");
+                            }, 300)
+                        }, (time3 + 1000))
+                    }, time3)
+                }, time2)
+            }, totalTime - (time2 + time3 + 1000));
+        }
     </script>
 </body>
 </html>
