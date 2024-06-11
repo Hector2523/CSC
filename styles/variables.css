@@ -15,8 +15,13 @@
 }
 
 
-body,html {
+body {
     overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+body.scroll {
+    overflow-y: auto;
 }
 
 @layer fonts {

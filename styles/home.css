@@ -11,6 +11,8 @@ div.load section#home {
     width: 100vw;
     background-image: var(--picture);
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left center;
     transition: .8s ease-in-out;
 }
 
@@ -35,6 +37,7 @@ div.load section#home aside.about h1 {
     font-size: 15vmin;
     line-height: 0.95;
     letter-spacing: .2px;
-    color: whitesmoke;
+    color: rgba(245, 245, 245, 0.934);
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.201);
     font-family: var(--Halyard);
 }

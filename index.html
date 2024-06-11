@@ -7,9 +7,10 @@
     <meta property="og:image" content="img/banner.webp">
     <link rel="shortcut icon" href="favicon/icon.webp" type="image/x-icon">
     <link rel="stylesheet" href="styles/variables.css">
-    <link rel="stylesheet" href="styles/load.css">
-    <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/description.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/load.css">
     <title>Colégio Santa Catarina</title>
 </head>
 <body>
@@ -39,11 +40,21 @@
                     <h1><span>COLÉGIO</span> <br>
                     <span>Santa</span> <span>Catarina</span></h1>
                 </aside>
+            </section>
 
+            <section id="description">
+                <h1>Colégio Santa Catarina atuando a mais de</h1>
+                <aside class="container">
+                    <h2 id="age">0</h2>
+                </aside>
+                <h1>pela educação</h1>
             </section>
         </main>
         <footer></footer>
     </div>
+
+    <script src="JS/scroll.js"></script>
+    <script src="JS/age.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -65,8 +76,7 @@
         });
 
         function timer(totalTime, time2, time3) {
-            var repeat = document.styleSheets[1].cssRules[0];
-            console.log(repeat)
+            var repeat = document.styleSheets[document.styleSheets.length - 1].cssRules[0];
 
             let percent = 0;
             let interval = totalTime / 100;
@@ -90,17 +100,19 @@
                         setTimeout(() => {
                             document.getElementById("loading").classList.add("finish");
                             document.querySelector("div.load").classList.add("finish");
+                            document.body.classList.add("scroll");
+                            setTimeout(() => {
+                                    document.querySelector("div.load").style.opacity = '1';
+                            }, 100)
                             setTimeout(() => {
                                 document.getElementById("loading").remove();
                                 document.styleSheets[1].disabled = false;
-                            }, 1300)
+                            }, (time3 - 200))
                         }, (time3 + 1000))
                     }, time3)
                 }, time2)
             }, totalTime - (time2 + time3 + 1000));
         }
     </script>
-
-    <script src="JS/scroll.js"></script>
 </body>
 </html>

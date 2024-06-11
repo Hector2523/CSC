@@ -29,40 +29,35 @@ header section aside.logo img {
 
 header section aside.content {
     cursor: pointer;
-    margin-right: 3vmin;
+    margin-right: 5vmin;
+    z-index: 9;
 }
 
 header section aside.content div {
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 1vmin 0;
-    width: 4vmin;
-    height: 3vmin;
+    width: 5vmin;
+    height: 4vmin;
+    padding: 10px;
 }
 
 header section aside.content div span {
     display: block;
-    height: 6%;
+    height: 2px;
     width: 90%;
     background-color: #fff;
     position: absolute;
 }
 
 header section aside.content div span.one {
-    top: 0;
+    top: 10%;
 }
 
 header section aside.content div span.two {
     top: 50%;
-    transform: translateY(-50%);
 }
 
 header section aside.content div span.three {
-    top: 100%;
-    transform: translateY(-50%);
-}
-
-body {
-    height: 200vh;
+    top: 90%;
 }
