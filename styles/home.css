@@ -1,0 +1,40 @@
+@charset "UTF-8";
+@import url(variables.css);
+
+div.load section#home {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-image: var(--picture);
+    background-size: cover;
+    transition: .8s ease-in-out;
+}
+
+div.load section#home::after {
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.374);
+    /* backdrop-filter: blur(10px); */
+}
+
+div.load section#home aside.about {
+    position: relative;
+    width: 80%;
+    z-index: 2;
+}
+
+div.load section#home aside.about h1 {
+    font-size: 15vmin;
+    line-height: 0.95;
+    letter-spacing: .2px;
+    color: whitesmoke;
+    font-family: var(--Halyard);
+}

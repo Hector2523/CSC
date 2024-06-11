@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+header {
+    position: fixed;
+    top: 0;
+    height: 10vmin;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+    z-index: 9;
+}
+
+header section {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header section aside.logo,
+header section aside.logo img {
+    height: 100%;
+    margin-left: .5vmin;
+    cursor: pointer;
+}
+
+header section aside.content {
+    cursor: pointer;
+    margin-right: 3vmin;
+}
+
+header section aside.content div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 1vmin 0;
+    width: 4vmin;
+    height: 3vmin;
+}
+
+header section aside.content div span {
+    display: block;
+    height: 6%;
+    width: 90%;
+    background-color: #fff;
+    position: absolute;
+}
+
+header section aside.content div span.one {
+    top: 0;
+}
+
+header section aside.content div span.two {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+header section aside.content div span.three {
+    top: 100%;
+    transform: translateY(-50%);
+}
+
+body {
+    height: 200vh;
+}

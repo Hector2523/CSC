@@ -1,4 +1,10 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&display=swap');
+
+@font-face {
+    font-family: Halyard;
+    src: url(../fonts/Halyard/fonnts.com-Halyard_Display_Bold.otf);
+}
 
 * {
     margin: 0;
@@ -6,4 +12,22 @@
     user-select: none;
     -webkit-user-drag: none;
     box-sizing: border-box;
+}
+
+
+body,html {
+    overflow-x: hidden;
+}
+
+@layer fonts {
+    :root {
+        --Gwendolyn: Gwendolyn;
+        --Halyard: Halyard;
+    }
+}
+
+@layer pictures {
+    :root {
+        --picture: url(../img/fachadaDois.jpg);
+    }
 }

@@ -6,18 +6,40 @@
     <meta name="description" content="Conheça o Colégio Santa Catarina Juiz de Fora, o melhor colégio de Juiz de Fora">
     <meta property="og:image" content="img/banner.webp">
     <link rel="shortcut icon" href="favicon/icon.webp" type="image/x-icon">
-    <link rel="stylesheet" href="styles/load.css">
     <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/load.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/home.css">
     <title>Colégio Santa Catarina</title>
 </head>
 <body>
 
     <div class="load">
-        <header></header>
+        <header>
+            <section>
+                <aside class="logo">
+                    <img src="img/icon.webp" alt="icone">
+                </aside>
+                <aside class="content">
+                    <div class="menu">
+                        <span class="one"></span>
+                        <span class="two"></span>
+                        <span class="three"></span>
+                    </div>
+                    <!-- <nav>
+                        <a href="">Home</a>
+                    </nav> -->
+                </aside>
+            </section>
+        </header>
         <main>
-            <section id="home">
-                <aside class="about"></aside>
-                <aside class="school"></aside>
+            <section id="home">    
+                    <!-- <p>" A educação liberta "</p> -->
+                <aside class="about">
+                    <h1><span>COLÉGIO</span> <br>
+                    <span>Santa</span> <span>Catarina</span></h1>
+                </aside>
+
             </section>
         </main>
         <footer></footer>
@@ -39,11 +61,12 @@
             </section>
             `;
 
-            timer(7000, 1000, 800);
+            timer(5000, 1000, 800);
         });
 
         function timer(totalTime, time2, time3) {
-            var repeat = document.styleSheets[0].cssRules[0];
+            var repeat = document.styleSheets[1].cssRules[0];
+            console.log(repeat)
 
             let percent = 0;
             let interval = totalTime / 100;
@@ -65,16 +88,19 @@
                     setTimeout(() => {
                         document.querySelector("aside.container").classList.add("active");
                         setTimeout(() => {
-                            document.getElementById("loading").remove();
-                            document.styleSheets[0].disabled = false;
+                            document.getElementById("loading").classList.add("finish");
+                            document.querySelector("div.load").classList.add("finish");
                             setTimeout(() => {
-                                document.querySelector("div.load").classList.add("finish");
-                            }, 300)
+                                document.getElementById("loading").remove();
+                                document.styleSheets[1].disabled = false;
+                            }, 1300)
                         }, (time3 + 1000))
                     }, time3)
                 }, time2)
             }, totalTime - (time2 + time3 + 1000));
         }
     </script>
+
+    <script src="JS/scroll.js"></script>
 </body>
 </html>
