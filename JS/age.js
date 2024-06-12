@@ -16,15 +16,6 @@ function startAgeCounter() {
             age.innerHTML = `${n}`;
         }
 
-        function calcEase(n) {
-            if (n <= 25) {
-                return 100;
-            } else if (n >= 90) {
-                return 50;
-            } else {
-                return 100;
-            }
-        }
     }
 }
 
