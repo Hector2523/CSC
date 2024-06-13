@@ -143,9 +143,3 @@ div.load.finish {
     opacity: 0;
     transition: .8s ease-in-out;
 }
-
-@media only screen and (max-width: 480px) {
-    section#loading {
-        height: 90vh !important;
-    }
-}

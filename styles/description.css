@@ -3,23 +3,53 @@
 
 section#description {
     height: 100vh;
-    background-color: whitesmoke;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(219, 219, 219);
 }
 
 section#description aside.container {
-    padding-top: 5vmin;
-    text-align: center;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 4vmin;
 }
 
-section#description aside.container h1 {
-    font-size: 5vmin;
+section#description aside.container h1.tittle {
+    font-size: 8vmin;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.137);
+    font-family: var(--Poppins);
+    color: rgb(57, 54, 54);
+}
+
+section#description aside.container p {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.016);
+    font-size: 3vmin;
+    font-family: var(--Roboto);
+    color: rgb(62, 61, 61);
+    font-weight: 400;
 }
 
 section#description aside.container h2 {
-    font-size: 6vmin;
+    font-size: 4vmin;
     margin: 3vmin 0;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.059);
+    font-family: var(--Poppins);
+    letter-spacing: -.3vmin;
+    text-align: center;
+    font-weight: 400;
 }
 
 section#description aside.container h2 span {
-    font-size: 12vmin;
+    display: inline-block;
+    width: 31vmin;
+    font-size: 20vmin;
+    color: #009581;
+    font-family: var(--Poppins);
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.249);
+    font-weight: 600;
+    font-style: italic;
 }

@@ -8,8 +8,53 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(3px);
-    z-index: 9;
+    margin-top: 1.5vmin;
+    animation: scale 1ms ease-in-out;
+    animation-timeline: scroll();
+    z-index: 6;
+}
+
+@keyframes scale {
+    from {
+        height: 10vmin;
+    }
+
+    to {
+        height: 8vmin;
+    }
+}
+
+header::before {
+    content: '';
+    background-color: transparent;
+    position: absolute;
+    top: -1.5vmin;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    backdrop-filter: blur(0);
+    transition: .8s ease-in-out;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    top: 8vmin;
+    left: 50%;
+    width: 97%;
+    height: 5px;
+    border-bottom: solid .5vmin rgba(143, 142, 142, 0);
+    transform: translate(-50%, -50%);
+    transition: .8s ease-in-out;
+}
+
+header.background::after {
+    border-bottom: solid .5vmin rgba(83, 79, 79, 0.759);
+}
+
+header.background::before {
+    background-color: rgba(105, 103, 103, 0.735);
+    backdrop-filter: blur(8px);
 }
 
 header section {
@@ -20,16 +65,42 @@ header section {
     align-items: center;
 }
 
+header.background section aside.logo {
+    display: flex;
+    align-items: center;
+}
+
 header section aside.logo,
 header section aside.logo img {
+    display: flex;
+    align-items: flex-start;
     height: 100%;
     margin-left: .5vmin;
+    animation: margin 1ms ease-in-out;
+    animation-timeline: scroll();
     cursor: pointer;
+    z-index: 9;
+    transition: .8s ease-in-out;
+}
+
+header section aside.logo img {
+    height: 5vmin;
+    width: auto;
+}
+
+@keyframes margin {
+    to {
+        margin-left: 2.4vmin;
+    }
 }
 
 header section aside.content {
     cursor: pointer;
     margin-right: 5vmin;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 9;
 }
 
@@ -40,6 +111,15 @@ header section aside.content div {
     width: 5vmin;
     height: 4vmin;
     padding: 10px;
+    animation: hamScroll 1ms ease-in-out;
+    animation-timeline: scroll();
+}
+
+@keyframes hamScroll {
+    to {
+        width: 4vmin;
+        height: 3vmin;
+    }
 }
 
 header section aside.content div span {
@@ -60,4 +140,44 @@ header section aside.content div span.two {
 
 header section aside.content div span.three {
     top: 90%;
+}
+
+@media only screen and (max-width: 460px) {
+
+
+    header::before {
+        padding-block: .5vmin;
+    }
+
+    header section aside.content div {
+        width: 6vmin !important;
+    }
+
+    header section aside.content div {
+        animation: hamScrolltwo 1ms ease-in-out;
+        animation-timeline: scroll();
+    }
+
+    @keyframes hamScrolltwo {
+        to {
+            width: 3vmin;
+            height: 2vmin;
+        }
+    }
+
+    header section aside.logo,
+    header section aside.logo img {
+        animation: margintwo 1ms ease-in-out;
+    }
+
+    @keyframes margintwo {
+        to {
+            margin-left: 1.8vmin;
+        }
+    }
+
+    header::after {
+        top: 8vmin !important;
+    }
+
 }
