@@ -76,3 +76,21 @@ div.readed {
         border-radius: 0;
     }
 }
+
+div#back {
+    width: 5vmin;
+    height: 5vmin;
+    background-color: #1cc1ab;
+    z-index: 8;
+    box-shadow: 0px 0px 5cap rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 1;
+    position: fixed;
+    right: 4%;
+    cursor: pointer;
+    bottom: 2%;
+    transition: .8s ease-in-out;
+}

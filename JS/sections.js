@@ -32,7 +32,6 @@ function initializeObserver() {
     observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             var section = entry.target.id;
-            console.log(section);
 
             if (section === "home") {
                 if (entry.intersectionRatio > 0.5) {
