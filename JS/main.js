@@ -17,21 +17,39 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function timer(totalTime, time2, time3) {
-    var repeat = document.styleSheets[document.styleSheets.length - 3].cssRules[0];
 
-    let percent = 0;
-    let interval = totalTime / 100;
+    function isLocalStyleSheet(styleSheet) {
+        return !styleSheet.href || styleSheet.href.startsWith(window.location.origin);
+    }
 
-    console.log(repeat)
-
-    let loadingInterval = setInterval(() => {
-        if (percent < 100) {
-            percent++;
-            repeat.style.setProperty("--percentage", percent + 'vw');
-        } else {
-            clearInterval(loadingInterval);
+    var localStyleSheet = null;
+    for (var i = document.styleSheets.length - 1; i >= 0; i--) {
+        if (isLocalStyleSheet(document.styleSheets[i])) {
+            localStyleSheet = document.styleSheets[i];
+            break;
         }
-    }, interval);
+    }
+
+    if (localStyleSheet) {
+        if (localStyleSheet.cssRules && localStyleSheet.cssRules.length > 0) {
+            var repeat = localStyleSheet.cssRules[0];
+            let percent = 0;
+            let interval = totalTime / 100;
+
+            let loadingInterval = setInterval(() => {
+                if (percent < 100) {
+                    percent++;
+                    repeat.style.setProperty("--percentage", percent + 'vw');
+                } else {
+                    clearInterval(loadingInterval);
+                }
+            }, interval);
+        } else {
+            console.error('A última folha de estilo local não contém regras CSS.');
+        }
+    } else {
+        console.error('Nenhuma folha de estilo local encontrada.');
+    }
 
     setTimeout(() => {
         document.querySelector("aside.description").classList.add("active");

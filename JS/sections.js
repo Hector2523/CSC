@@ -32,7 +32,6 @@ function initializeObserver() {
     observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             var section = entry.target.id;
-            var run = false
 
             if (section === "home") {
                 if (entry.intersectionRatio > 0.5) {
@@ -40,25 +39,22 @@ function initializeObserver() {
                     document.querySelector('header').classList.remove('background');
                     back.classList.remove('active');
 
-                    setTimeout( () => {
-                        run = false;
-                    }, 550)
+                    clearTimeout(back.hideTimeout);
+                    back.hideTimeout = setTimeout(() => {
+                        if (entry.intersectionRatio > 0.5) {
+                            back.style.display = 'none';
+                        }
+                    }, 550);
 
-                    if (run == false) {
-                        run = true
-                        back.style.display = 'none';
-                    }
-                    
-                    
                 } else {
-                    run = true
+                    clearTimeout(back.hideTimeout);
                     document.getElementById(section).classList.add('blur');
                     document.querySelector('header').classList.add('background');
                     back.style.display = 'flex';
+
                     setTimeout(() => {
                         back.classList.add('active');
-                    }, 100)
-                    
+                    }, 100);
                 }
             } else if (entry.isIntersecting && section === "description") {
                 startAgeCounter();
@@ -75,7 +71,6 @@ function initializeObserver() {
         }
     });
 }
-
 
 document.addEventListener("scroll", initializeObserver);
 window.addEventListener("resize", initializeObserver);

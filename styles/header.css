@@ -9,19 +9,12 @@ header {
     justify-content: center;
     align-items: center;
     margin-top: 1.5vmin;
-    animation: scale 1ms ease-in-out;
-    animation-timeline: scroll();
+    transition: .8s ease-in-out;
     z-index: 6;
 }
 
-@keyframes scale {
-    from {
-        height: 10vmin;
-    }
-
-    to {
-        height: 8vmin;
-    }
+header.background {
+    height: 8vmin;
 }
 
 header::before {
