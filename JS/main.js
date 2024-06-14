@@ -13,14 +13,16 @@ document.addEventListener("DOMContentLoaded", () => {
     </section>
     `;
 
-    timer(0, 0, 0);
+    timer(700, 900, 600);
 });
 
 function timer(totalTime, time2, time3) {
-    var repeat = document.styleSheets[document.styleSheets.length - 1].cssRules[0];
+    var repeat = document.styleSheets[document.styleSheets.length - 3].cssRules[0];
 
     let percent = 0;
     let interval = totalTime / 100;
+
+    console.log(repeat)
 
     let loadingInterval = setInterval(() => {
         if (percent < 100) {

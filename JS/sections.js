@@ -18,7 +18,7 @@ function startAgeCounter() {
             }
     
         }
-    }, 300)
+    }, 600)
 }
 
 var sections = ['home', 'description'];
@@ -26,20 +26,39 @@ var observer;
 
 function initializeObserver() {
     if (observer) {
-        observer.disconnect(); // Desconecta o observador existente, se houver
+        observer.disconnect();
     }
 
     observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             var section = entry.target.id;
+            var run = false
 
             if (section === "home") {
                 if (entry.intersectionRatio > 0.5) {
                     document.getElementById(section).classList.remove('blur');
                     document.querySelector('header').classList.remove('background');
+                    back.classList.remove('active');
+
+                    setTimeout( () => {
+                        run = false;
+                    }, 550)
+
+                    if (run == false) {
+                        run = true
+                        back.style.display = 'none';
+                    }
+                    
+                    
                 } else {
+                    run = true
                     document.getElementById(section).classList.add('blur');
                     document.querySelector('header').classList.add('background');
+                    back.style.display = 'flex';
+                    setTimeout(() => {
+                        back.classList.add('active');
+                    }, 100)
+                    
                 }
             } else if (entry.isIntersecting && section === "description") {
                 startAgeCounter();

@@ -5,8 +5,8 @@ function toScroll(local, back) {
             if (back != undefined) {
                 back.style.scale = '1.2';
                 setTimeout(() => {
-                    back.back.style.scale = '1';
-                })
+                    back.style.scale = '1';
+                }, 900)
             }
             break;
         default:
