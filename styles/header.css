@@ -69,22 +69,19 @@ header section aside.logo img {
     align-items: flex-start;
     height: 100%;
     margin-left: .5vmin;
-    animation: margin 1ms ease-in-out;
-    animation-timeline: scroll();
     cursor: pointer;
     z-index: 9;
     transition: .8s ease-in-out;
 }
 
+header.background section aside.logo,
+header.background section aside.logo img {
+    margin-left: 2.4vmin;
+}
+
 header section aside.logo img {
     height: 5vmin;
     width: auto;
-}
-
-@keyframes margin {
-    to {
-        margin-left: 2.4vmin;
-    }
 }
 
 header section aside.content {
@@ -104,15 +101,12 @@ header section aside.content div {
     width: 5vmin;
     height: 4vmin;
     padding: 10px;
-    animation: hamScroll 1ms ease-in-out;
-    animation-timeline: scroll();
+    transition: .8s ease-in-out;
 }
 
-@keyframes hamScroll {
-    to {
-        width: 4vmin;
-        height: 3vmin;
-    }
+header.bakground section aside.content div {
+    width: 4vmin;
+    height: 3vmin;
 }
 
 header section aside.content div span {

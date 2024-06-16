@@ -3,7 +3,7 @@
 
 div.load section#home {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,6 +16,11 @@ div.load section#home {
     transition: .8s ease-in-out;
     border-radius: 0px 0px 10px 10px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.268);
+    border-bottom: .5vmin solid rgba(0, 0, 0, 0.374);
+    transition: .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+div.load section#home.blur {
     border-bottom: .5vmin solid gray;
 }
 
@@ -58,7 +63,7 @@ div.load section#home aside.about h1 {
     line-height: 0.95;
     letter-spacing: .2px;
     color: rgba(245, 245, 245, 0.934);
-    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.201);
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.301);
     font-family: var(--Halyard), Arial, Helvetica, sans-serif;
 }
 

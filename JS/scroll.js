@@ -1,24 +1,29 @@
+var home = document.getElementById('home');
+var scrolling = false;
+var programmaticScroll = false;
+
 function toScroll(local, btn, button) {
     if (button.disabled) {
-        console.warn('Aperte o botão com mais calma :)')
+        console.warn('Aperte o botão com mais calma :)');
         return;
     }
 
-    console.log(btn)
+    scrolling = true;
+    programmaticScroll = true;
+
+    console.log(btn);
 
     switch (local) {
         case 0:
-            document.getElementById('home').scrollIntoView();
+            home.scrollIntoView({ behavior: 'smooth' });
             button.disabled = true;
 
-            switch (btn) {
-                case 'back':
-                    button.style.scale = '1.2';
+            if (btn === 'back') {
+                button.style.transform = 'scale(1.2)';
                 setTimeout(() => {
-                    button.style.scale = '1';
-                }, 900)
+                    button.style.transform = 'scale(1)';
+                }, 900);
             }
-            
             break;
         default:
             console.warn('Posição inválida');
@@ -26,5 +31,16 @@ function toScroll(local, btn, button) {
 
     setTimeout(() => {
         button.disabled = false;
+        scrolling = false;
+    }, 1000);
+
+    setTimeout(() => {
+        programmaticScroll = false;
     }, 1000);
 }
+
+document.addEventListener('scroll', () => {
+    if (scrolling && !programmaticScroll) {
+        console.warn('Não é possível rolar a tela enquanto uma ação de rolagem já está em andamento :(');
+    }
+});

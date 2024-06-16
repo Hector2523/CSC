@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +12,11 @@
     <link rel="stylesheet" href="styles/description.css">
     <link rel="stylesheet" href="styles/carousel.css">
     <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/menu.css">
     <link rel="stylesheet" href="styles/load.css">
     <title>Colégio Santa Catarina</title>
 </head>
+
 <body>
 
     <div class="load">
@@ -78,8 +81,25 @@
         </div>
     </div>
 
-    <script src="JS/scroll.js"></script>
-    <script src="JS/sections.js"></script>
-    <script src="JS/main.js"></script>
+    <script>
+        window.onload = () => {
+            const JS = ['main.js', 'cache.js', 'scroll.js', 'sections.js'];
+            JS.forEach((i) => {
+                const element = document.createElement("script");
+                element.src = `JS/${i}`;
+                document.body.appendChild(element);
+            });
+
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('JS/cache.js').then(function (registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            }
+
+        };
+    </script>
+
 </body>
 </html>

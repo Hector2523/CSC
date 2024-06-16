@@ -1,9 +1,10 @@
 @charset "UTF-8";
 
 section#carousel {
-    border-radius: 10px;
     height: 100vh;
     width: 100%;
+    background-color: #775141;
+    transform: translateY(-6%);
     display: flex;
     justify-content: center;
     align-items: center;

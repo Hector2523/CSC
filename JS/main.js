@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.innerHTML += `
+document.body.innerHTML += `
     <section id="loading">
         <div class="progress"></div>
         <aside class="container">
@@ -13,8 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </section>
     `;
 
-    timer(700, 900, 600);
-});
+timer(700, 900, 600);
 
 function timer(totalTime, time2, time3) {
 

@@ -1,10 +1,11 @@
 var run = true;
+var age = document.getElementById('age');
 
 function startAgeCounter() {
     setTimeout(() => {
         if (run) {
             run = false;
-            var age = document.getElementById('age');
+           
     
             for (let n = 0; n <= 115; n++) {
     
@@ -18,7 +19,7 @@ function startAgeCounter() {
             }
     
         }
-    }, 600)
+    }, 300)
 }
 
 var sections = ['home', 'description'];

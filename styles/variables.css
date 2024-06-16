@@ -77,6 +77,10 @@ div.readed {
     }
 }
 
+main {
+    height: 292vmin;
+}
+
 div#back {
     width: 7vmin;
     height: 7vmin;
