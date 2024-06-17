@@ -3,7 +3,6 @@ if (localStorage.getItem("cacheComplete") === "true") {
 }
 
 function timer(totalTime, time2, time3) {
-
     function isLocalStyleSheet(styleSheet) {
         return !styleSheet.href || styleSheet.href.startsWith(window.location.origin);
     }
@@ -53,7 +52,9 @@ function timer(totalTime, time2, time3) {
                     }, 100);
                     setTimeout(() => {
                         document.getElementById("loading").remove();
-                        document.styleSheets[1].disabled = false;
+                        if (document.styleSheets.length > 1) {
+                            document.styleSheets[1].disabled = false;
+                        }
                     }, (time3 - 200));
                 }, (time3 + 1000));
             }, time3);
