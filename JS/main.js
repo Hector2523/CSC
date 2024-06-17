@@ -1,4 +1,4 @@
-if (localStorage.getItem("cacheComplete") == "true") {
+if (localStorage.getItem("cacheComplete") === "true") {
     timer(700, 900, 600);
 }
 

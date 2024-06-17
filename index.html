@@ -232,6 +232,12 @@
                 navigator.serviceWorker.addEventListener('message', function (event) {
                     if (event.data.type === 'CACHE_COMPLETE') {
                         localStorage.setItem('cacheComplete', 'true');
+                        const JS = ['main.js', 'cache.js', 'scroll.js', 'sections.js'];
+                        JS.forEach((i) => {
+                            const element = document.createElement("script");
+                            element.src = `JS/${i}`;
+                            document.body.appendChild(element);
+                        });
                         console.log('Cache download completed and recorded in localStorage');
                     } else if (event.data.type === 'CACHE_UPDATED') {
                         console.log('Cache updated, please refresh the page to get the latest content.');
