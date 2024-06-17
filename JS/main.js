@@ -1,18 +1,6 @@
-document.body.innerHTML += `
-    <section id="loading">
-        <div class="progress"></div>
-        <aside class="container">
-            <aside class="logo">
-                <img src="img/icon.webp" alt="Colegio Santa Catarina logo">
-            </aside>
-            <aside class="description">
-                <img src="img/logo-colegio-juizdefora.webp" alt="colegio santa catarina juiz de fora">
-            </aside>
-        </aside>
-    </section>
-    `;
-
-timer(700, 900, 600);
+if (localStorage.getItem("cacheComplete") == "true") {
+    timer(700, 900, 600);
+}
 
 function timer(totalTime, time2, time3) {
 
