@@ -1,7 +1,8 @@
 const CACHE_NAME = 'cache-v1';
 const urlsToCache = [
+    '../fonts/Montserrat/Montserrat-VariableFont_wght.ttf',
     '../fonts/Halyard/Halyard_Display_Bold.otf',
-    '../styles/variables.css', // Certifique-se de que este arquivo existe
+    '../styles/variables.css',
     '../styles/home.css',
     '../styles/description.css',
     '../styles/carousel.css',
@@ -37,6 +38,7 @@ function logError(message, error) {
 }
 
 function sendProgressUpdate(progress) {
+    console.log('sendProgressUpdate chamado com progresso:', progress);
     self.clients.matchAll().then(clients => {
         clients.forEach(client => {
             client.postMessage({ type: 'PROGRESS', progress: progress });
@@ -45,6 +47,7 @@ function sendProgressUpdate(progress) {
 }
 
 self.addEventListener('install', function(event) {
+    console.log('Service Worker: install event');
     if (errorOccurred) return;
     event.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
@@ -71,10 +74,10 @@ self.addEventListener('install', function(event) {
                 });
             }
 
-            // Cache all the files
             let cachePromises = urlsToCache.map(addToCache);
             return Promise.all(cachePromises);
         }).then(function() {
+            console.log('All files cached successfully');
             return self.skipWaiting();
         }).catch(function(err) {
             let response = `Failed to complete the cache installation`;
@@ -85,17 +88,20 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
+    console.log('Service Worker: activate event');
     if (errorOccurred) return;
     event.waitUntil(
         caches.keys().then(function(cacheNames) {
             return Promise.all(
                 cacheNames.map(function(cacheName) {
                     if (cacheName !== CACHE_NAME) {
+                        console.log('Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
             );
         }).then(function() {
+            console.log('Claiming clients for Service Worker');
             return self.clients.claim();
         }).then(function() {
             return self.clients.matchAll().then(clients => {
@@ -114,6 +120,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
+    console.log('Service Worker: fetch event for', event.request.url);
     if (errorOccurred) {
         event.respondWith(
             new Response('An error occurred while fetching the resource. Please try again later.', {
@@ -166,6 +173,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('message', function(event) {
+    console.log('Service Worker: message event', event.data);
     if (event.data.action === 'CACHE_STATUS') {
         if (errorOccurred) {
             event.source.postMessage({ type: 'ERROR', message: errorMessage });

@@ -161,7 +161,9 @@ aside.info p {
     font-family: var(--Poppins);
 }
 
-section#succes, section#error {
+section#error {
+    display: none;
+    opacity: 0;
     z-index: 3;
     position: fixed;
     top: 2vmin;
@@ -172,9 +174,10 @@ section#succes, section#error {
     max-width: 80vw;
     min-height: 15vmin;
     max-height: max-content;
+    transition: .8s ease-in-out;
 }
 
-section#succes aside, section#error aside {
+section#error aside {
     width: 100%;
     min-height: 15vmin;
     max-height: 100%;
@@ -194,19 +197,19 @@ section#error:hover {
     box-shadow: 0px 0px 10px rgba(184, 41, 41, 0.557);
 }
 
-section#succes aside, section#error aside span.message {
+section#error aside span.message {
     display: flex;
     justify-content: center;
     width: 78%;
     height: 70%;
 }
 
-section#succes aside, section#error aside span.message p {
+section#error aside span.message p {
     display: block;
     font-size: 2vmin;
 }
 
-section#succes aside, section#error aside span.img {
+section#error aside span.img {
     height: 100%;
     font-size: 3vmin;
     font-family: var(--Montserrat);
@@ -222,7 +225,7 @@ section#succes aside, section#error aside span.img {
     gap: .2vmin;
 }
 
-section#succes aside, section#error aside span.img img {
+section#error aside span.img img {
     height: 10vmin;
 }
 

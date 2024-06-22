@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles/carousel.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/menu.css">
-    <link rel="stylesheet" href="styles/load.css">
+    <link rel="stylesheet" href="styles/load.css" id="loadCSS">
     <title>Colégio Santa Catarina</title>
 </head>
 
@@ -101,19 +101,6 @@
 
         </section>
 
-        <section id="succes">
-            <aside>
-                <span class="img">
-                    <img src="img/load/download.gif" alt="imagem de download concluído">
-                </span>
-                <span class="message">
-                    <p>
-                        The download of the caches has been successfully completed.
-                    </p>
-                </span>
-            </aside>
-        </section>
-
         <aside class="container">
             <aside class="logo">
                 <img src="img/icon.webp" alt="Colegio Santa Catarina logo">
@@ -124,141 +111,145 @@
         </aside>
 
         <aside class='info'>
-            <p>Caching: <span id="info"></span></p>
-
-            <p id="percentage">0%</p>
+            <p id="percentage">Caching:</p>
         </aside>
     </section>
 
         `;
 
-        const sectError = document.getElementById('errors');
+        const errors = document.getElementById('errors');
+        const sectError = document.getElementById('error');
         const progressBar = document.getElementById('percentage');
+        const JS = ['main.js', 'cache.js', 'scroll.js', 'sections.js'];
 
-        if (localStorage.getItem("cacheComplete") === 'error') {
-            async function clearAllCaches() {
-                try {
-                    if ('caches' in window) {
-                        const cacheNames = await caches.keys();
-                        console.log('Caches encontrados:', cacheNames);
-                        await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
-                        console.log('Todos os caches foram apagados.');
+        if (localStorage.getItem("cacheComplete") === 'true') {
+            JS.forEach((i) => {
+                const element = document.createElement("script");
+                element.src = `JS/${i}`;
+                document.body.appendChild(element);
+            });
+            progressBar.innerHTML = 'The site cache was already ready when you accessed it';
+        } else if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('JS/cache.js').then(function (registration) {
+                console.log('Service Worker registered with scope:', registration.scope);
+
+                function sendMessageToServiceWorker(worker) {
+                    if (worker) {
+                        worker.postMessage({ action: 'CACHE_STATUS' });
                     } else {
-                        console.warn('Caches não são suportados neste navegador.');
+                        console.log('Service Worker is not ready to receive messages.');
                     }
-                } catch (error) {
-                    console.error('Erro ao apagar os caches:', error);
                 }
-            }
 
-            async function clearIndexedDB() {
-                try {
-                    if (window.indexedDB) {
-                        const dbs = await window.indexedDB.databases();
-                        await Promise.all(dbs.map(db => new Promise((resolve, reject) => {
-                            const request = window.indexedDB.deleteDatabase(db.name);
-                            request.onsuccess = resolve;
-                            request.onerror = reject;
-                        })));
-                        console.log('Todos os bancos de dados IndexedDB foram apagados.');
-                    } else {
-                        console.warn('IndexedDB não é suportado neste navegador.');
-                    }
-                } catch (error) {
-                    console.error('Erro ao apagar IndexedDB:', error);
+                if (registration.active) {
+                    sendMessageToServiceWorker(registration.active);
+                } else if (registration.waiting) {
+                    sendMessageToServiceWorker(registration.waiting);
+                } else if (registration.installing) {
+                    registration.installing.addEventListener('statechange', function () {
+                        if (this.state === 'activated') {
+                            sendMessageToServiceWorker(registration.active);
+                        }
+                    });
                 }
-            }
+            }).catch(function (error) {
+                console.error('Service Worker registration failed:', error);
+            });
 
-            async function clearServiceWorkers() {
-                try {
-                    if ('serviceWorker' in navigator) {
-                        const registrations = await navigator.serviceWorker.getRegistrations();
-                        await Promise.all(registrations.map(registration => registration.unregister()));
-                        console.log('Todos os service workers foram desregistrados.');
-                    } else {
-                        console.warn('Service Workers não são suportados neste navegador.');
-                    }
-                } catch (error) {
-                    console.error('Erro ao desregistrar service workers:', error);
-                }
-            }
+            navigator.serviceWorker.addEventListener('message', function (event) {
+                if (event.data.type === 'CACHE_COMPLETE') {
+                    localStorage.setItem('cacheComplete', 'true');
+                    JS.forEach((i) => {
+                        const element = document.createElement("script");
+                        element.src = `JS/${i}`;
+                        document.body.appendChild(element);
+                    });
+                    console.log('Cache download completed and recorded in localStorage');
+                } else if (event.data.type === 'CACHE_UPDATED') {
+                    console.log('Cache updated, please refresh the page to get the latest content.');
+                } else if (event.data.type === 'ERROR') {
 
-            function clearLocalStorage() {
-                try {
-                    localStorage.clear();
-                    console.log('Local storage foi apagado.');
-                } catch (error) {
-                    console.error('Erro ao apagar o local storage:', error);
-                }
-            }
+                    errors.innerHTML += `<li>${event.data.message}</li>`;
 
-            async function clearAllData() {
-                await clearAllCaches();
-                await clearIndexedDB();
-                await clearServiceWorkers();
-                clearLocalStorage();
-                console.warn('Todos os caches, IndexedDB, service workers e local storage foram apagados devido a um erro.');
-            }
+                    sectError.style.display = "flex";
 
-            clearAllData();
-        } else {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('JS/cache.js').then(function (registration) {
-                    console.log('Service Worker registered with scope:', registration.scope);
+                    setTimeout(() => {
+                        sectError.style.opacity = "1";
+                    }, 500)
 
-                    function sendMessageToServiceWorker(worker) {
-                        if (worker) {
-                            worker.postMessage({ action: 'CACHE_STATUS' });
-                        } else {
-                            console.log('Service Worker is not ready to receive messages.');
+                    async function clearAllCaches() {
+                        try {
+                            if ('caches' in window) {
+                                const cacheNames = await caches.keys();
+                                console.log('Caches encontrados:', cacheNames);
+                                await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+                                console.log('Todos os caches foram apagados.');
+                            } else {
+                                console.warn('Caches não são suportados neste navegador.');
+                            }
+                        } catch (error) {
+                            console.error('Erro ao apagar os caches:', error);
                         }
                     }
 
-                    if (registration.active) {
-                        sendMessageToServiceWorker(registration.active);
-                    } else if (registration.waiting) {
-                        sendMessageToServiceWorker(registration.waiting);
-                    } else if (registration.installing) {
-                        registration.installing.addEventListener('statechange', function () {
-                            if (this.state === 'activated') {
-                                sendMessageToServiceWorker(registration.active);
+                    async function clearIndexedDB() {
+                        try {
+                            if (window.indexedDB) {
+                                const dbs = await window.indexedDB.databases();
+                                await Promise.all(dbs.map(db => new Promise((resolve, reject) => {
+                                    const request = window.indexedDB.deleteDatabase(db.name);
+                                    request.onsuccess = resolve;
+                                    request.onerror = reject;
+                                })));
+                                console.log('Todos os bancos de dados IndexedDB foram apagados.');
+                            } else {
+                                console.warn('IndexedDB não é suportado neste navegador.');
                             }
-                        });
+                        } catch (error) {
+                            console.error('Erro ao apagar IndexedDB:', error);
+                        }
                     }
-                }).catch(function (error) {
-                    console.error('Service Worker registration failed:', error);
-                });
 
-                navigator.serviceWorker.addEventListener('message', function (event) {
-                    if (event.data.type === 'CACHE_COMPLETE') {
-                        localStorage.setItem('cacheComplete', 'true');
-                        const JS = ['main.js', 'cache.js', 'scroll.js', 'sections.js'];
-                        JS.forEach((i) => {
-                            const element = document.createElement("script");
-                            element.src = `JS/${i}`;
-                            document.body.appendChild(element);
-                        });
-                        console.log('Cache download completed and recorded in localStorage');
-                    } else if (event.data.type === 'CACHE_UPDATED') {
-                        console.log('Cache updated, please refresh the page to get the latest content.');
-                    } else if (event.data.type === 'ERROR') {
-
-
-                        localStorage.setItem('cacheComplete', 'error');
-
-                        sectError.innerHTML += `<li>${event.data.message}</li>`;
-
-                    } else if (event.data.type === 'PROGRESS') {
-                        let progress = event.data.progress;
-                        console.log('progresso: ' + progress)
-                        progressBar.style.width = progress + '%';
-                        progressBar.textContent = progress + '%';
+                    async function clearServiceWorkers() {
+                        try {
+                            if ('serviceWorker' in navigator) {
+                                const registrations = await navigator.serviceWorker.getRegistrations();
+                                await Promise.all(registrations.map(registration => registration.unregister()));
+                                console.log('Todos os service workers foram desregistrados.');
+                            } else {
+                                console.warn('Service Workers não são suportados neste navegador.');
+                            }
+                        } catch (error) {
+                            console.error('Erro ao desregistrar service workers:', error);
+                        }
                     }
-                });
-            }
+
+                    function clearLocalStorage() {
+                        try {
+                            localStorage.clear();
+                            console.log('Local storage foi apagado.');
+                        } catch (error) {
+                            console.error('Erro ao apagar o local storage:', error);
+                        }
+                    }
+
+                    async function clearAllData() {
+                        await clearAllCaches();
+                        await clearIndexedDB();
+                        await clearServiceWorkers();
+                        clearLocalStorage();
+                        console.warn('Todos os caches, IndexedDB, service workers e local storage foram apagados devido a um erro.');
+                    }
+
+                    clearAllData();
+
+                } else if (event.data.type === 'PROGRESS') {
+                    let progress = event.data.progress;
+                    console.log('progresso: ' + progress)
+                    progressBar.textContent = progress + '%';
+                }
+            });
         }
-
-
 
     </script>
 </body>
