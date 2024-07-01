@@ -11,8 +11,6 @@ function toScroll(local, btn, button) {
     scrolling = true;
     programmaticScroll = true;
 
-    console.log(btn);
-
     switch (local) {
         case 0:
             home.scrollIntoView({ behavior: 'smooth' });

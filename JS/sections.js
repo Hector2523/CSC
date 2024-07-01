@@ -1,5 +1,7 @@
 var run = true;
 var age = document.getElementById('age');
+var homeBtn = document.getElementById('homeMenu');
+var aboutBtn = document.getElementById('aboutMenu');
 
 function startAgeCounter() {
     setTimeout(() => {
@@ -35,10 +37,15 @@ function initializeObserver() {
             var section = entry.target.id;
 
             if (section === "home") {
+
+                homeBtn.classList.add('marked');
+
                 if (entry.intersectionRatio > 0.5) {
                     document.getElementById(section).classList.remove('blur');
                     document.querySelector('header').classList.remove('background');
+                    aboutBtn.classList.remove('marked');
                     back.classList.remove('active');
+                    
 
                     clearTimeout(back.hideTimeout);
                     back.hideTimeout = setTimeout(() => {
@@ -58,6 +65,8 @@ function initializeObserver() {
                     }, 100);
                 }
             } else if (entry.isIntersecting && section === "description") {
+                homeBtn.classList.remove('marked');
+                aboutBtn.classList.add('marked');
                 startAgeCounter();
                 sections.splice(sections.indexOf('description'), 1);
                 observer.unobserve(entry.target);
